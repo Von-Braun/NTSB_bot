@@ -1,0 +1,6 @@
+<reddit username>
+<reddit password>
+<user agent>
+<client id>
+<client secret>
+<subreddit name>
