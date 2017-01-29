@@ -4,7 +4,7 @@ import time
 import sys, os
 from bs4 import BeautifulSoup
 import xml.etree.ElementTree
-import string, requests,requests
+import string, requests
 printable = set(string.printable)
 
 #dependancies
@@ -108,6 +108,8 @@ r = praw.Reddit(user_agent = user_agent,client_id=login_file.readline().strip('\
 if verbose: print '    Login Succesful\n'
 subreddit_name=login_file.readline().strip('\n')
 subreddit = r.subreddit(subreddit_name)
+subscriber_count = subreddit.subscribers
+print 'Subscriber Count[',subscriber_count,']'
 
 id_database=[]
 for line in open('id_database.txt','r'):
@@ -144,4 +146,5 @@ os.chdir(os.path.join(os.path.expanduser('~'), 'Desktop')) #go to desktop
 report_file = open('NTSB_Report.txt','w')
 report_file.write(update_count_text)
 report_file.write('\n'+time_string)
+report_file.write('\nSubs: '+str(subscriber_count))
 report_file.close()        
