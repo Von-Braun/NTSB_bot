@@ -57,7 +57,7 @@ def post_incident(data,catagories):
     x=0
     end_count=0
     page = requests.get(str('https://www.ntsb.gov/_layouts/ntsb.aviation/brief.aspx?ev_id='+data[0]).strip(), verify=False).text[:]
-    soup = BeautifulSoup(page, "lxml")
+    soup = BeautifulSoup(page.replace('<p>',' ').replace('</p>',' '), "lxml")
     soup.prettify()
 
     for anchor in soup.findAll('span', {"id": "ctl00_PlaceHolderMain_lblNarrAcc"}):
@@ -69,7 +69,7 @@ def post_incident(data,catagories):
 
         if body_text=='\n':
             page = requests.get(str('https://www.ntsb.gov/_layouts/ntsb.aviation/brief.aspx?ev_id='+data[0]).strip(), verify=False).text[:]
-            soup = BeautifulSoup(page, "lxml")
+            soup = BeautifulSoup(page.replace('<p>',' ').replace('</p>',' '), "lxml")
             soup.prettify()
             for backup in soup.findAll('span', {"id": "ctl00_PlaceHolderMain_lblNarrAcc"}):
                 all_text=filter(lambda x: x in printable, backup.get_text())
